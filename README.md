@@ -59,11 +59,30 @@ The .env or .env.local will be used when you serve the app with `php artisan ser
 ### Use MySQL to serve the app
 1. Copy and rename `.env.example` to `.env` or `.env.local` (the one you do not commit to git)
 2. configure `APP_ENV=local`
-3. Generate an APP_KEY in it : `php artisan key:generate`
-4. Create a new DB and name it 'project' in your database manager (phpmyadmin, wamp, etc...)
+3. Generate an APP_KEY in it : `php artisan key:generate --env=local`
+4. Create a new DB db_name in your database manager (phpmyadmin, wamp, etc...)
 5. Configure your MySQL connection with this DB name in this .env file 
 6. Run the migrations `php artisan migrate`.
 7. Serve the app on localhost:8000 `php artisan serve`
+
+### Use SQLite to serve the app
+1. Copy and rename `.env.example` to `.env` or `.env.local` (the one you do not commit to git)
+2. configure `APP_ENV=local`
+3. Generate an APP_KEY in .env : `php artisan key:generate --env=local`
+4. Configure your SQLite connection in this .env file `DB_CONNECTION=sqlite`
+5. Create an empty database file `database/database.sqlite`
+6. Check that in `config/database.php` the sqlite connection is like this (default Laravel config)
+```'sqlite' => [
+            'driver' => 'sqlite',
+            'url' => env('DATABASE_URL'),
+            'database' => env('DB_DATABASE', database_path('database.sqlite')),
+            'prefix' => '',
+            'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
+        ],
+``` 
+7. Run the migrations `php artisan migrate`.
+8. Serve the app on localhost:8000 `php artisan serve`
+9. Finally, run `php artisan optimize:clear` to clear the cache(s) if needed.
 
 ### Use a testing env with SQLite to run the tests (in memory or on disk)
 1. Copy and rename `.env.example` to `.env.testing`
@@ -91,9 +110,7 @@ To Run all Tests at once : `php artisan test` or `vendor/bin/phpunit`
 
 Remind, BE CAREFULL !! the `use RefreshDatabase` instruction in `tests/Feature/RelationshipsTest.php` will empty the DB and run all migrations again before running each test.
 
-Finally, run 
-	`php artisan optimize:clear`
- to clear the caches if needed.
+Finally, run `php artisan optimize:clear` to clear the caches if needed.
 
 ### You may encounter MySQL error key too long
 

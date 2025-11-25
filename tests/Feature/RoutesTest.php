@@ -5,7 +5,8 @@ namespace Tests\Feature;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\RefreshDatabase; // Ensure this line is present
+use Illuminate\Foundation\Testing\WithFaker; // Add this line
 use Tests\TestCase;
 
 class RoutesTest extends TestCase

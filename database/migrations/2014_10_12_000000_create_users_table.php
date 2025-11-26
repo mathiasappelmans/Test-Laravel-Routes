@@ -78,7 +78,7 @@ class CreateUsersTable extends Migration
             [
                 'name' => 'Mathias Appelmans',
                 'email' => 'math.appelmans@gmail.com',
-                'password' => Hash::make("kaboum"),
+                'password' => Hash::make("password"),
                 'remember_token' => '3XkhiKXqyf',
             ],
             [

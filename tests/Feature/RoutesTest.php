@@ -12,7 +12,7 @@ use Tests\TestCase;
 class RoutesTest extends TestCase
 {
     use RefreshDatabase;
-
+    
     public function test_home_screen_shows_welcome()
     {
         $response = $this->get('/');
@@ -29,7 +29,7 @@ class RoutesTest extends TestCase
         $response->assertOk();
         $response->assertViewIs('users.show');
     }
-
+    // same route but with non-existing user
     public function test_user_page_nonexisting_user_not_found()
     {
         $response = $this->get('/user/sometotallynonexistinguser');

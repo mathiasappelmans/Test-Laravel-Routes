@@ -94,4 +94,13 @@ Route::middleware(['auth'])->group(function() {
 
 // One more task is in routes/api.php
 
+
+Route::get('categories', function() {
+
+    $categories = DB::table('category')->get();
+    return view('categories', compact('categories'));
+});
+
+Route::view('/table', 'table');
+
 require __DIR__.'/auth.php';

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Task;
 use Illuminate\Http\Request;
-
 class TaskController extends Controller
 {
     /**
@@ -12,16 +12,27 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): \Illuminate\View\View
     {
-        $tasks = Task::all();
+        $task = Task::first();
+        $task->tags()->createMany([
+            ['id' => 4, 'name' => 'analyze'],
+            ['id' => 5, 'name' => 'meeting']
+        ]);
+        
+        $tasks = Task::with('category')->get();
 
-        return view('tasks.index', compact('tasks'));
+        $categories = Category::with('tasks')->get();
+
+        return view('tasks.index', [
+            'tasks' => $tasks,
+            'categories' => $categories,
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
-     *
+        *
      * @return \Illuminate\Http\Response
      */
     public function create()

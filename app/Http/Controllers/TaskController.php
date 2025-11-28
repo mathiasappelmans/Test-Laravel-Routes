@@ -14,13 +14,18 @@ class TaskController extends Controller
      */
     public function index(): \Illuminate\View\View
     {
-        $task = Task::first();
-        $task->tags()->createMany([
-            ['id' => 4, 'name' => 'analyze'],
-            ['id' => 5, 'name' => 'meeting']
-        ]);
-        
-        $tasks = Task::with('category')->get();
+        /* $task = Task::first();
+        $task->tags()->create([
+            "name" => "Tag 1"
+        ]); */
+
+        /* $tasks = Task::all();
+
+        foreach ($tasks as $task) {
+            $task->tags()->attach(rand(1, 10));
+        } */
+
+        $tasks = Task::with('category')->with('tags')->get();
 
         $categories = Category::with('tasks')->get();
 

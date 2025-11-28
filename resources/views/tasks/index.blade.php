@@ -1,15 +1,18 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Tasks') }}
+            {{ __('Tasks & Categories') }}
         </h2>
     </x-slot>
-
-    <div class="py-12">
+    
+    <div class="py-12">        
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg text-center">
-                <div class="p-6 bg-white border-b border-gray-200">
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                    {{ __('Tasks') }}
+                </h2>
+                <div class="p-6 bg-purple-100 border-b border-gray-200">
                     <div class="overflow-hidden overflow-x-auto min-w-full align-middle sm:rounded-md">
                         <a href="{{ route('tasks.create') }}" class="underline">Add new task</a>
                         <br /><br />
@@ -18,6 +21,9 @@
                             <tr>
                                 <th class="px-6 py-3 bg-gray-50">
                                     <span class="text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Name</span>
+                                </th>
+                                <th class="px-6 py-3 bg-gray-50">
+                                    <span class="text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Tags</span>
                                 </th>
                                 <th class="px-6 py-3 bg-gray-50">
                                     <span class="text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Category</span>
@@ -32,6 +38,11 @@
                                 <tr class="bg-white">
                                     <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
                                         {{ $task->name }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
+                                        @foreach($task->tags as $tag)
+                                            <span class="bg-gray-200 text-xs mx-2 p-1 rounded">{{ $tag->name }}</span>
+                                        @endforeach
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
                                         {{ $task->category?->name }}
@@ -53,7 +64,10 @@
             </div>
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mt-10 text-center">
-                <div class="p-6 bg-white border-b border-gray-200">
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                    {{ __('Categories') }}
+                </h2>
+                <div class="p-6 bg-red-100 border-b border-gray-200">
                     <div class="overflow-hidden overflow-x-auto min-w-full align-middle sm:rounded-md">
                         <a href="{{ route('tasks.create') }}" class="underline">Add new category</a>
                         <br /><br />

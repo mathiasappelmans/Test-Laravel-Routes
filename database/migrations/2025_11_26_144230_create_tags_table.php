@@ -19,10 +19,10 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('tag_task', function (Blueprint $table) {
-            $table->foreignId('tasks_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('tags_id')->constrained()->cascadeOnDelete();
-            $table->primary(['tasks_id', 'tags_id']);
+        Schema::create('tag_task', function (Blueprint $table) { // convention Laravel: au singulier et par ordre alphanumérique
+            $table->foreignIdFor(Tag::class)->constrained()->cascadeOnDelete(); // creates 'tag_id' column in table tag_task with FK to 'tags.id'
+            $table->foreignIdFor(Task::class)->constrained()->cascadeOnDelete(); // creates 'task_id' column in table tag_task with FK to 'task.id'
+            $table->primary(['task_id', 'tag_id']);
         });
     }
 
